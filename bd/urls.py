@@ -24,9 +24,16 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='base.html'), name='home'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', user.signup, name='signup'),
+
     path('blogs/', blog.BlogListView.as_view(), name='blogs'),
     path('blog/create/', blog.BlogCreateView.as_view(), name='blog-create'),
     path('blog/<int:pk>/', blog.BlogDetailView.as_view(), name='blog-view'),
     path('blog/update/<int:pk>/', blog.BlogUpdateView.as_view(), name='blog-update'),
     path('blog/delete/<int:pk>/', blog.BlogDeleteView.as_view(), name='blog-delete'),
+
+    path('posts/<int:blog_id>', post.PostListView.as_view(), name='posts'),
+    path('post/<int:blog_id>/create/', post.PostCreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/', post.PostDetailView.as_view(), name='post-view'),
+    path('post/update/<int:pk>/', post.PostUpdateView.as_view(), name='post-update'),
+    path('post/delete/<int:pk>/', post.PostDeleteView.as_view(), name='post-delete'),
 ]

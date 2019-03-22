@@ -1,8 +1,9 @@
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import redirect, get_object_or_404, render
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views import View
 
-from bd.models import Blog
+from bd.models import *
 
 
 class BlogListView(ListView):
@@ -23,14 +24,22 @@ class BlogCreateView(CreateView):
         return redirect('blogs')
 
 
-class BlogDetailView(DetailView):
-    model = Blog
-    template_name = 'blogs/view.html'
+class BlogDetailView(View):
+
+    def get(self, request, pk):
+        blog = get_object_or_404(Blog, id=pk)
+        posts = Post.objects.filter(blog=blog).order_by('-created')
+
+        return render(request, 'blogs/view.html', {
+            'blog': blog,
+            'posts': posts,
+        })
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
     fields = ('title', 'description', 'style')
+    success_url = reverse_lazy('blogs')
     template_name = 'blogs/form.html'
 
 

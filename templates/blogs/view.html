@@ -15,8 +15,21 @@
     </head>
     <body>
         <main role="main" class="main container">
-            <h2>{{ blog.title }}</h2>
-            <h3>{{ blog.description }}</h3>
+            <div id="header">
+                <div id="title">{{ blog.title }}</div>
+                <div id="description">{{ blog.description | safe }}</div>
+            </div>
+            <br>
+            <div id="posts">
+                {% for post in posts %}
+                    <div id="posttitle">{{ post.title }}</div>
+                    <div id="postcreated">{{ post.created }}</div>
+                    <div id="postcontent">{{ post.content }}</div>
+                    <br>
+                    <hr>
+                    <br>
+                {% endfor %}
+            </div>
         </main>
     </body>
 </html>

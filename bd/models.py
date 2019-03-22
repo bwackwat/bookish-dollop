@@ -19,7 +19,7 @@ class BaseModel(models.Model):
 class Blog(BaseModel):
     title = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=200)
-    style = models.TextField()
+    style = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title

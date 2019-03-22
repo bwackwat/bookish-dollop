@@ -8,17 +8,19 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Blogs</th>
-                <th></th>
+                <th>Blog</th>
+                <th>Posts</th>
+                <th>Manage</th>
             </tr>
         </thead>
         <tbody>
             {% for blog in blogs %}
             <tr>
                 <td>{{ blog }}</td>
+                <td><a href="{% url 'posts' blog.pk %}">Edit ({{ blog.posts.all|length }})</a></td>
                 <td class="action-btn-cell">
-                    <a href="{% url 'blog-view' blog.pk %}">View</a>
-                    <a href="{% url 'blog-update' blog.pk %}">Edit</a>
+                    <a href="{% url 'blog-view' blog.pk %}">View</a>&nbsp;
+                    <a href="{% url 'blog-update' blog.pk %}">Edit</a>&nbsp;
                     <a href="{% url 'blog-delete' blog.pk %}">Delete</a>
                 </td>
             </tr>
