@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="add-btn-container">
+        <a href="{% url 'blog-create' %}">Create Blog</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Blogs</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blog in blogs %}
+            <tr>
+                <td>{{ blog }}</td>
+                <td class="action-btn-cell">
+                    <a href="{% url 'blog-view' blog.pk %}">View</a>
+                    <a href="{% url 'blog-update' blog.pk %}">Edit</a>
+                    <a href="{% url 'blog-delete' blog.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
