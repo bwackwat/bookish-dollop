@@ -6,6 +6,21 @@ from django.views import View
 from bd.models import *
 
 
+class JsonView(View):
+
+    def get(self, request):
+        return HttpResponse('result')
+
+    def post(self, request):
+        return HttpResponse('result')
+
+    def put(self, request):
+        return HttpResponse('result')
+
+    def delete(self, request):
+        return HttpResponse('result')
+
+
 class BlogListView(ListView):
     model = Blog
     context_object_name = 'blogs'

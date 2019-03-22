@@ -1,0 +1,321 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Bookish Dollop",
+    "description": "This is documentation for the RESTful JSON API of the Bookish Dollop blogging platform.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "John Paul Hayes II",
+      "url": "https://jph2.net",
+      "email": "admin@jph2.net"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/",
+      "description": "Development environment."
+    }
+  ],
+  "paths": {
+    "/blogs": {
+      "get": {
+        "tags": [
+          "Blog"
+        ],
+        "summary": "Get blogs.",
+        "description": "Get blogs.",
+        "operationId": "ReadBlog",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "bearerAuth": "authToken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/200"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Blog"
+        ],
+        "summary": "Add a blog.",
+        "description": "Add a blog.",
+        "operationId": "CreateBlog",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "bearerAuth": "authToken"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "required": true,
+                    "description": "The title of the blog."
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true,
+                    "description": "The description of the user."
+                  },
+                  "style": {
+                    "type": "string",
+                    "required": false,
+                    "description": "A stylesheet for the blog."
+                  }
+                }
+              },
+              "example": {
+                "title": "Example Blog Title",
+                "description": "Example Blog Description",
+                "style": "#title { color: blue; }"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/responses/200"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Blog"
+        ],
+        "summary": "Update a blog.",
+        "description": "Update a blog.",
+        "operationId": "UpdateBlog",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "bearerAuth": "authToken"
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "example": 1,
+              "description": "A blog ID to put for.",
+              "required": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "required": true,
+                    "description": "The title of the blog."
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true,
+                    "description": "The description of the user."
+                  },
+                  "style": {
+                    "type": "string",
+                    "required": false,
+                    "description": "A stylesheet for the blog."
+                  }
+                }
+              },
+              "example": {
+                "title": "Example Updated Blog Title",
+                "description": "Example Updated Blog Description"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/responses/200"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Blog"
+        ],
+        "summary": "Delete a blog.",
+        "description": "Delete a blog.",
+        "operationId": "DeleteBlog",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "example": 1,
+              "description": "A blog ID to delete.",
+              "required": true
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": "authToken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/200"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "Login200": {
+      "description": "Successful Request",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "description": "Authorization bearer token"
+              },
+              "refresh_token": {
+                "type": "string",
+                "description": "A token used to verify a user and to get new tokens."
+              }
+            }
+          }
+        }
+      }
+    },
+    "200": {
+      "description": "OK"
+    },
+    "400": {
+      "description": "Bad Request",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "401": {
+      "description": "Unauthorized",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "models": {
+    "blog": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique identifier of the blog."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the blog."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the blog."
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Blog",
+      "description": "Routes for account data manipulation."
+    },
+    {
+      "name": "Administration",
+      "description": "Routes for administrative data manipulation."
+    }
+  ]
+}
